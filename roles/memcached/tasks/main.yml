@@ -1,0 +1,22 @@
+---
+# tasks file for memcached
+- name: "Ensure memcached is deployed"
+  community.kubernetes.k8s:
+    state: present
+    definition: "{{ lookup('template', 'memcached-deployment.yml.j2') }}"
+    namespace: "{{ ansible_operator_meta.namespace }}"
+    wait: True
+    wait_timeout: 120
+
+- name: "Ensure service is created"
+  community.kubernetes.k8s_service:
+    state: present
+    name: "{{ ansible_operator_meta.name }}-memcached"
+    namespace: "{{ ansible_operator_meta.namespace }}"
+    ports:
+    - port: 11211
+      protocol: TCP
+    selector:
+      app: memcached
+    type: "{{ service_type }}"
+    

@@ -1,0 +1,10 @@
+apiVersion: cache.example.com/v1
+kind: Memcached
+metadata:
+  name: memcached-sample
+spec:
+  size: 3
+  memory_allocation: 128
+  image_name: memcached
+  image_tag: 1.4.36-alpine
+  service_type: ClusterIP

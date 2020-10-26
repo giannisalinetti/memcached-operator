@@ -1,0 +1,28 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: '{{ ansible_operator_meta.name }}-memcached'
+  namespace: '{{ ansible_operator_meta.namespace }}'
+spec:
+  replicas: {{ size }}
+  selector:
+    matchLabels:
+      app: memcached
+  template:
+    metadata:
+      labels:
+        app: memcached
+    spec:
+      containers:
+      - name: memcached
+        command:
+        - memcached
+        - -m={{ memory_allocation }}
+        - -o
+        - modern
+        - -v
+        image: {{ image_name }}:{{ image_tag }}
+        ports:
+          - containerPort: 11211
+

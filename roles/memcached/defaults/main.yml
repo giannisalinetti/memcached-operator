@@ -1,0 +1,7 @@
+---
+# defaults file for memcached
+size: 1
+memory_allocation: 64
+image_name: memcached
+image_tag: 1.4.36-alpine
+service_type: ClusterIP
